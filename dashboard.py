@@ -12,12 +12,9 @@ st.title("​Book Now Pay Later")
 
 def extract():
     # extract data from database
-    import pymongo
-    client = pymongo.MongoClient("mongodb+srv://praveenkkr/bnpl@stano.mez9zwp.mongodb.net/?retryWrites=true&w=majority")
-    database = client['staine']
-    collection = database['BNPL']
 
-    return pd.DataFrame(list(collection.find())).drop("_id", axis=1)
+    df = pd.read_csv('BNPL_data.csv')
+    return df
 
 def model_fit(df):
 
