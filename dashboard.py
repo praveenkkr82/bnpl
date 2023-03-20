@@ -31,7 +31,8 @@ def model_fit(df):
     for i in sorted(df_dep.columns):
         df_de[i] = df_dep[i]
 
-    model = RandomForestClassifier()
+    #model = RandomForestClassifier()
+    model = pickle.load(open('randomforest_model.pkl', 'rb'))
     model.fit(df_de, df_ind)
 
     return model, df_de.iloc[1:2,:]
