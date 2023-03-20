@@ -68,4 +68,4 @@ if __name__=="__main__":
         df_pre[i] = df_predict[i]
 
     if st.button("Predict"):
-        st.write("The Cost Matrix is Good Risk" if 1==actual_model.predict(df_pre)[0] else "The Cost Matrix is Bad Risk")
+        st.write("Prediction: Good Risk" if 1==actual_model.predict(df_pre)[0] else "Prediction: Bad Risk")
