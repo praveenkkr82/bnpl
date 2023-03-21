@@ -33,7 +33,7 @@ def model_fit(df):
 
     #model = RandomForestClassifier()
     model = pickle.load(open('randomforest_model.pkl', 'rb'))
-    model.fit(df_de, df_ind)
+    #model.fit(df_de, df_ind)
 
     return model, df_de.iloc[1:2,:]
 
@@ -43,6 +43,7 @@ if __name__=="__main__":
     actual_model, df_dep = model_fit(df)
 
     df_col = [i for i in df.columns if df[i].dtypes == "O"]
+    print(df_col)
 
     df_predict1 = pd.DataFrame()
     for i in range(len(df_col)-1):
