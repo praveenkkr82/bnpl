@@ -45,12 +45,12 @@ if __name__=="__main__":
     df_col = [i for i in df.columns if df[i].dtypes == "O"]
     print(df_col)
 
-    #df_predict1 = pd.DataFrame()
-    #for i in range(len(df_col)-1):
-        #exec(f"s_{i+1} = st.selectbox(df_col[{i}], (j for j in df[df_col].iloc[:,{i}].unique()))")
-        #print(exec(f"s_{i+1}"))
-        #df_select = pd.DataFrame(dict ([(df_col[i]+'_'+m,1 if eval(f"s_{i+1}") == m else 0 ) for m in df[df_col].iloc[:,i].unique()]), index=[0])
-        #df_predict1 = pd.concat([df_predict1, df_select], axis=1)
+    df_predict1 = pd.DataFrame()
+    for i in range(len(df_col)-1):
+        exec(f"s_{i+1} = st.selectbox(df_col[{i}], (j for j in df[df_col].iloc[:,{i}].unique()))")
+        print(exec(f"s_{i+1}"))
+        df_select = pd.DataFrame(dict ([(df_col[i]+'_'+m,1 if eval(f"s_{i+1}") == m else 0 ) for m in df[df_col].iloc[:,i].unique()]), index=[0])
+        df_predict1 = pd.concat([df_predict1, df_select], axis=1)
     
 
     df_int = [i for i in df.columns if df[i].dtypes != "O"]
