@@ -1,4 +1,12 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+# In[3]:
+
+
 import os
+os.getcwd()
+os.chdir("C:/Users/praveen.ramaradhya/My Drive/bits-pilani/DSE/SEM4/dissertation/BNPL/sources")
 import streamlit as st
 import streamlit.components.v1 as components
 import pandas as pd
@@ -7,14 +15,17 @@ import pickle
 from sklearn.ensemble import RandomForestClassifier
 
 st.set_page_config( page_title="Dashboard", page_icon="🧊", layout="wide", initial_sidebar_state="expanded")
-st.title("​Buy Now Pay Later")
+st.title("​BUY NOW PAY LATER")
 
 
 def extract():
     # extract data from database
+    import pymongo
+    client = pymongo.MongoClient("mongodb+srv://dftML:dftML@stano.mez9zwp.mongodb.net/?retryWrites=true&w=majority")
+    database = client['staine']
+    collection = database['BNPL']
 
-    df = pd.read_csv('BNPL_data.csv')
-    return df
+    return pd.DataFrame(list(collection.find())).drop("_id", axis=1)
 
 def model_fit(df):
 
@@ -31,9 +42,8 @@ def model_fit(df):
     for i in sorted(df_dep.columns):
         df_de[i] = df_dep[i]
 
-    #model = RandomForestClassifier()
-    model = pickle.load(open('randomforest_model.pkl', 'rb'))
-    #model.fit(df_de, df_ind)
+    model = RandomForestClassifier()
+    model.fit(df_de, df_ind)
 
     return model, df_de.iloc[1:2,:]
 
@@ -43,7 +53,6 @@ if __name__=="__main__":
     actual_model, df_dep = model_fit(df)
 
     df_col = [i for i in df.columns if df[i].dtypes == "O"]
-    print(df_col)
 
     df_predict1 = pd.DataFrame()
     for i in range(len(df_col)-1):
@@ -69,4 +78,7 @@ if __name__=="__main__":
         df_pre[i] = df_predict[i]
 
     if st.button("Predict"):
-        st.write("Prediction: Good Risk" if 1==actual_model.predict(df_pre)[0] else "Prediction: Bad Risk")
+        st.write("The customer is eligible for offer" if 1==actual_model.predict(df_pre)[0] else "The customer is not eligible for offer")
+
+
+# In[ ]:
