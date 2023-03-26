@@ -53,4 +53,4 @@ if __name__=="__main__":
     for i in sorted(df_dep.columns):
         df_pre[i] = df_predict[i]
     if st.button("Predict"):
-        st.write("Prediction: Good Risk" if 1==actual_model.predict(df_pre)[0] else "Prediction: Bad Risk")
+        st.write("Prediction: Good Risk - Eligible for offer" if 1==actual_model.predict(df_pre)[0] else "Prediction: Bad Risk - Not Eligible for offer")
