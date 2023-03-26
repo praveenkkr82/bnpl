@@ -7,7 +7,7 @@ import pickle
 from sklearn.ensemble import RandomForestClassifier
 
 st.set_page_config( page_title="Dashboard", page_icon="🧊", layout="wide", initial_sidebar_state="expanded")
-st.title("​Buy Now Pay Later")
+st.title("​Watch Now Pay Later")
 
 
 def extract():
